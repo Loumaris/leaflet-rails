@@ -35,14 +35,15 @@ module Leaflet
       if markers
         markers.each_with_index do |marker, index|
           title = ''
-          title = ", title: '#{marker[:title]}'" if marker[:title]
+          title = "title: '#{marker[:title]}'" if marker[:title]
 
           if marker[:icon]
             icon_settings = prep_icon_settings(marker[:icon])
             output << "var #{icon_settings[:name]}#{index} = L.icon({iconUrl: '#{icon_settings[:icon_url]}', shadowUrl: '#{icon_settings[:shadow_url]}', iconSize: #{icon_settings[:icon_size]}, shadowSize: #{icon_settings[:shadow_size]}, iconAnchor: #{icon_settings[:icon_anchor]}, shadowAnchor: #{icon_settings[:shadow_anchor]}, popupAnchor: #{icon_settings[:popup_anchor]}});"
-            icon = ", {icon: #{icon_settings[:name]}#{index}}"
+            icon = "icon: #{icon_settings[:name]}#{index}"
           end
-          output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}] #{icon} #{title}).addTo(map);"
+          opt_params = [title, icon].reject(&:blank?).join(', ')
+          output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}], {#{opt_params}} ).addTo(map);"
 
           output << "marker.bindPopup('#{escape_javascript marker[:popup]}');" if marker[:popup]
         end
