@@ -35,7 +35,7 @@ module Leaflet
       if markers
         markers.each_with_index do |marker, index|
           title = ''
-          title = ", title: #{marker[:title]}" if marker[:title]
+          title = ", title: '#{marker[:title]}'" if marker[:title]
 
           if marker[:icon]
             icon_settings = prep_icon_settings(marker[:icon])
