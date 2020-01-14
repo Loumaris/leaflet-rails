@@ -42,8 +42,6 @@ module Leaflet
             output << "var #{icon_settings[:name]}#{index} = L.icon({iconUrl: '#{icon_settings[:icon_url]}', shadowUrl: '#{icon_settings[:shadow_url]}', iconSize: #{icon_settings[:icon_size]}, shadowSize: #{icon_settings[:shadow_size]}, iconAnchor: #{icon_settings[:icon_anchor]}, shadowAnchor: #{icon_settings[:shadow_anchor]}, popupAnchor: #{icon_settings[:popup_anchor]}});"
             icon = ", {icon: #{icon_settings[:name]}#{index}}"
           end
-
-          output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}]"
           output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}] #{icon} #{title}]).addTo(map);"
 
           output << "marker.bindPopup('#{escape_javascript marker[:popup]}');" if marker[:popup]
